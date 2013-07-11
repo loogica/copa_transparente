@@ -7,27 +7,33 @@ Objetivos:
 
 ## Processamento de Meta Dados
 
-1. Download de uma base mensal
+Download de uma base mensal
 
 ```sh
 python download_dados_copa.py
 ```
 
-2. Extraindo todos arquivos
+Extraindo todos arquivos
 
 ```sh
 python extrai_banco.py
 ```
 
-3. Le meta dados
+Le meta dados
 
 ```sh
 python le_meta_dados.py
 ```
 
-4. Gera modelo visual
+Gera modelo visual
 
 ```sh
 python analise_meta.py > relacionamentos.dot
 dot -T png relacionamentos.dot -o relacionamentos.png
+```
+
+Detalhes de uma tabela?
+
+```sh
+python detalhe_tabela.py [NomeTabela]
 ```
