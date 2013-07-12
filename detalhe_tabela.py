@@ -19,7 +19,7 @@ def main():
     tabela = grafo[sys.argv[1]]
     relations = all_relations['relations'][sys.argv[1]]
     reverse_relations = all_relations['reverse'][sys.argv[1]]
-    print("PK {:<30} Tipo {:<20}".format(tabela[0][0], tabela[0][1]))
+    print("PK  {:<30} Tipo {:<20}".format(tabela[0][0], tabela[0][1]))
     for column in tabela[1:]:
         found = 0
         for relation in relations:
@@ -34,4 +34,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
