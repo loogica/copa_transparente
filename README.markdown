@@ -1,9 +1,20 @@
 # Copa Transparente
 
-Objetivos:
+O projeto `copa transparente` é uma aplicação Livre, feita para Python 3.3 (ou superior)
+que irá:
 
-* Disponibilizar um grafo rico dos meta-dados da base de dados dos gastos com a Copa (tabelas, pks e fks).
-* Disponibilizar um grafo fico dos dados dos gastos com a Copa.
+* Faz o download de um arquivo de um arquivo de banco de dados atualizado.
+* Leê os arquivos de meta-dados e criar entender os campos e relacionamentos do modelo
+  pelos arquivos de meta dados.
+* Gera um modelo visual das tabelas e relacionamentos (gerar um .dot e depois um png)
+* Lista a descrição da tabela - colunas com tipo de chave (primaria, estrangeira ou normal)
+  e tipo do dado (string, int, etc...)
+* Ler linhas de um arquivo de banco.
+
+## Próximos passos
+
+* Criar visualizações gráficas desses dados, também compatível com Python 3.
+* Deploy na web
 
 ## O que é usado?
 
