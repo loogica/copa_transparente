@@ -1,10 +1,10 @@
 # Copa Transparente
 
 O projeto `copa transparente` é uma aplicação Livre, feita para Python 3.3 (ou superior)
-que irá:
+que:
 
-* Faz o download de um arquivo de um arquivo de banco de dados atualizado.
-* Leê os arquivos de meta-dados e criar entender os campos e relacionamentos do modelo
+* Faz o download de um arquivo de banco de dados atualizado.
+* Lê os arquivos de meta-dados e criar entender os campos e relacionamentos do modelo
   pelos arquivos de meta dados.
 * Gera um modelo visual das tabelas e relacionamentos (gerar um .dot e depois um png)
 * Lista a descrição da tabela - colunas com tipo de chave (primaria, estrangeira ou normal)
