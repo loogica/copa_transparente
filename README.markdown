@@ -37,3 +37,9 @@ Detalhes de uma tabela?
 ```sh
 python detalhe_tabela.py [NomeTabela]
 ```
+
+Dados de uma tabela?
+
+```sh
+python le_dados.py [NomeTabela]
+```
