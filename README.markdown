@@ -4,12 +4,12 @@ O projeto `copa transparente` é uma aplicação Livre, feita para Python 3.3 (o
 que:
 
 * Faz o download de um arquivo de banco de dados atualizado.
-* Lê os arquivos de meta-dados e criar entender os campos e relacionamentos do modelo
+* Lê os arquivos de meta-dados e entende campos e relacionamentos do modelo
   pelos arquivos de meta dados.
-* Gera um modelo visual das tabelas e relacionamentos (gerar um .dot e depois um png)
+* Gera um modelo visual das tabelas e relacionamentos (gera um .dot e depois um png)
 * Lista a descrição da tabela - colunas com tipo de chave (primaria, estrangeira ou normal)
   e tipo do dado (string, int, etc...)
-* Ler linhas de um arquivo de banco.
+* Le linhas de um arquivo de banco.
 
 ## Próximos passos
 
