@@ -5,6 +5,16 @@ Objetivos:
 * Disponibilizar um grafo rico dos meta-dados da base de dados dos gastos com a Copa (tabelas, pks e fks).
 * Disponibilizar um grafo fico dos dados dos gastos com a Copa.
 
+## O que é usado?
+
+* Módulo `urllib`  para download do arquivo zip dos dados.
+* Módulo `io` - `FileIO`, `StringIO`
+* Módulo `os` - `listdir()`, `chdir()`, `mkdir()`, `rename()`
+* Módulo `os.path` - `join()`, `exists()`
+* Módulo `zipfile` - `ZipFile`, `extractall()`, `close()`
+* Módulo `pickle` - `dumps()`, `loads()`
+* Múdolo `sys` - `argv`
+
 ## Processamento de Meta Dados
 
 Download de uma base mensal
