@@ -19,8 +19,11 @@ def main():
 
     print("Criando Base de Dados")
     os.chdir("banco")
-    os.mkdir("data")
-    os.mkdir("meta-data")
+
+    if not os.path.exists("data"):
+        os.mkdir("data")
+    if not os.path.exists("meta-data"):
+        os.mkdir("meta-data")
 
     for arquivo in os.listdir("."):
         if arquivo.endswith(".txt"):
