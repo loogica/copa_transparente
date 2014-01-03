@@ -19,11 +19,29 @@ NO_LENGTH_HEADER = 'http://www.portaldatransparencia.gov.br/copa2014/gestor/' \
 
 #http://www.portaldatransparencia.gov.br/copa2014/gestor/download?nomeArquivo=201209_BaseDados.zip
 #http://www.portaldatransparencia.gov.br/copa2014/gestor/download?nomeArquivo=20130711_BaseDados.zip
+#http://www.portaldatransparencia.gov.br/copa2014/gestor/download?nomeArquivo=20130923_BaseDados.zip
 
 
-# Inteiro
-# Constante
 BUFF_SIZE = 1024
+def download_length(response, output, length):
+    times = length / BUFF_SIZE
+    if length % BUFF_SIZE > 0:
+        times += 1
+    for time in range(int(times)):
+        output.write(response.read(BUFF_SIZE))
+        print("Downloaded %d" % (((time * BUFF_SIZE)/length)*100))
+
+def download(response, output):
+    total_downloaded = 0
+    while True:
+        # Escreve em "out_file" o que ler em "response"
+        data = response.read(BUFF_SIZE)
+        total_downloaded += len(data)
+        if not data:
+            break
+        output.write(data)
+        print('Downloaded {bytes}'.format(bytes=total_downloaded))
+
 
 # Função
 # Nome "main"
@@ -39,25 +57,10 @@ def main():
 
     content_length = response.getheader('Content-Length')
     if content_length:
-        # Conversão de string para inteiro
         length = int(content_length)
-        # Conversão de float para inteiro
-        times = int((length / BUFF_SIZE) + 1)
-        # Loop de 0 até "times"
-        for time in range(times):
-            # Escreve em "out_file" o que ler em "response"
-            out_file.write(response.read(BUFF_SIZE))
-            print("Downloaded %d" % (((time * BUFF_SIZE)/length)*100))
+        download_length(response, out_file, length)
     else:
-        total_downloaded = 0
-        while True:
-            # Escreve em "out_file" o que ler em "response"
-            data = response.read(BUFF_SIZE)
-            total_downloaded += len(data)
-            if not data:
-                break
-            out_file.write(data)
-            print('Downloaded {bytes}'.format(bytes=total_downloaded))
+        download(response, out_file)
 
     # Fecha Response
     response.close()
@@ -65,4 +68,5 @@ def main():
     out_file.close()
     print("Finished")
 
-main()
+if __name__ == "__main__":
+    main()
