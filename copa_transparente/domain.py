@@ -37,6 +37,18 @@ class Column:
             _str = "({}) {}".format("PK", _str)
         return _str
 
+    @property
+    def name(self):
+        return self._name
+
+    @property
+    def kind(self):
+        return self._kind
+
+    @property
+    def is_pk(self):
+        return self._is_pk
+
     @staticmethod
     def validate(kind, data):
         if kind == 'bigint':
@@ -149,5 +161,21 @@ class DataTable:
         relationship = Relationship(name, by, self, on)
         self._referenced.append(relationship)
 
-    def select(self, names):
-        pass
+    def _get_indexes(self, args):
+        cols = []
+        for name in args:
+            for i, col in enumerate(self._columns):
+                if name == col.name:
+                    cols.append(i)
+        if not cols:
+            return list(range(len(self._columns)))
+
+        return cols
+
+    def _select(self, args):
+        indexes = self._get_indexes(args)
+        for data in self._data:
+            row_data = []
+            for i in indexes:
+                row_data.append(data[i])
+            yield tuple(row_data)

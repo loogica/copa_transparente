@@ -30,7 +30,7 @@ class JSONTestResult(unittest.TestResult):
 
     def addError(self, test, err):
         self.current['result'] = 'error'
-        print(err)
+        print(err[1])
         self.newTest()
 
     def addFailure(self, test, err):
