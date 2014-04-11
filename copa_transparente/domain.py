@@ -143,6 +143,23 @@ class DataTable:
         self._columns.append(column)
         return column
 
+    def add_pk(self, name, kind, description=""):
+        self._validate_kind(kind)
+        column = PrimaryKey(name, kind, description=description)
+        self._columns.append(column)
+        return column
+
+    @property
+    def pk(self):
+        for col in self._columns:
+            if col.is_pk:
+                return col
+        return None
+
+    @property
+    def cols(self):
+        return [x for x in filter(lambda x: not x.is_pk, self._columns)]
+
     def _validate_kind(self, kind):
         if not kind in ('bigint', 'numeric', 'varchar', 'datetime', 'decimal', 'bit',
                         'int', 'ntext'):
