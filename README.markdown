@@ -63,46 +63,53 @@ python analise_meta.py > relacionamentos.dot
 dot -T png relacionamentos.dot -o relacionamentos.png
 ```
 
+## Listando nomes das tabelas
+
+```sh
+python lista_tabelas.py
+```
+
+
 ## Detalhes de uma tabela?
 
 ```sh
 python detalhe_tabela.py [NomeTabela]
-PK  IdEmpreendimento               Tipo bigint
-Col DescEmpreendimento             Tipo varchar
-FK  IdCidadeSede                   Tipo bigint
-FK  IdTema                         Tipo bigint
-FK  IdAgrupador                    Tipo bigint
-Col FlgFonteMatriz                 Tipo bit
-Col FlgDireto                      Tipo bit
-Col DescObservacao                 Tipo varchar
-FK  IdAndamento                    Tipo bigint
-Col FlgAtivo                       Tipo bit
+PK  IdExecucaoFinanceira           Tipo bigint
+Col NumDocumento                   Tipo varchar
+FK  IdAndamentoFinanceiro          Tipo bigint
+FK  IdTipoExecucaoFinanceira       Tipo bigint
+Col DatAssinatura                  Tipo datetime
+Col DatInicioVigencia              Tipo datetime
+Col DatFinalVigencia               Tipo datetime
+Col IdInstituicaoContratante       Tipo bigint
+FK  IdTipoDocumento                Tipo bigint
+Col IdInstituicaoContratado        Tipo bigint
+Col IdPessoaFisicaContratado       Tipo bigint
+Col ValContrato                    Tipo decimal
+Col ValContrapartida               Tipo decimal
+Col ValTotal                       Tipo decimal
+Col DescObjeto                     Tipo varchar
+FK  IdLicitacao                    Tipo bigint
+Col FlgInexibilidadeLicitacao      Tipo bit
+Col FlgDispensaLicitacao           Tipo bit
+FK  IdFundamentoLegal              Tipo bigint
 FK  IdFaseGrupo                    Tipo bigint
-Col TxtExplicativoInvestimento     Tipo varchar
-Col TxtExplicativoRecursos         Tipo varchar
-Col TxtExplicativoEtapas           Tipo varchar
-FK  IdProjeto                      Tipo bigint
-FK  IdInstituicao                  Tipo bigint
-Col ValTotalPrevisto               Tipo numeric
-Empreendimento -> Outras
-[   ('CidadeSede', 'IdCidadeSede'),
-    ('Tema', 'IdTema'),
-    ('Agrupador', 'IdAgrupador'),
-    ('Andamento', 'IdAndamento'),
-    ('FaseGrupo', 'IdFaseGrupo'),
-    ('Projeto', 'IdProjeto'),
-    ('Instituicao', 'IdInstituicao')]
-Outras -> Empreendimento
-[   ('Alerta', 'IdAlerta'),
-    ('Log', 'IdLog'),
-    ('RelatorioExecucao', 'IdRelatorioExecucao'),
-    ('Licenca', 'IdLicenca'),
-    ('RecursoPrevisto', 'IdRecursoPrevisto'),
-    ('ExecucaoFinanceira', 'IdExecucaoFinanceira'),
-    ('Licitacao', 'IdLicitacao'),
-    ('Etapa', 'IdEtapa'),
-    ('Recurso', 'IdRecurso'),
-    ('RecursoCaptado', 'IdRecursoCaptado')]
+Col FlgAtivo                       Tipo bit
+Col FlgExclusaoDependencia         Tipo bit
+ExecucaoFinanceira -> Outras
+   ExecucaoFinanceira to ExecucaoFinanceira
+   ExecucaoFinanceira to Empreendimento
+   ExecucaoFinanceira to AndamentoFinanceiro
+   ExecucaoFinanceira to TipoExecucaoFinanceira
+   ExecucaoFinanceira to TipoDocumento
+   ExecucaoFinanceira to Licitacao
+   ExecucaoFinanceira to FundamentoLegal
+   ExecucaoFinanceira to FaseGrupo
+Outras -> ExecucaoFinanceira
+   Desembolso to ExecucaoFinanceira
+   Log to ExecucaoFinanceira
+   Alerta to ExecucaoFinanceira
+   Aditivo to ExecucaoFinanceira
 ```
 
 ## Dados de uma tabela?

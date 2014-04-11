@@ -2,6 +2,7 @@
 *.zip
 *.png
 banco/
+banco_*
 *.pyc
 saida/
 saida.zip
