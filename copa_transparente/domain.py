@@ -76,9 +76,10 @@ class Column:
 
 
 class PrimaryKey(Column):
-    def __init__(self, table, name, kind, description=None):
+    def __init__(self, name, kind, description=None):
         super().__init__(name, kind, description=description)
         self._is_pk = True
+
 
 class Relationship:
     """Classe que representa um relacionamento entre DataTables
