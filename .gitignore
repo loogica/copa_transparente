@@ -2,3 +2,7 @@
 *.zip
 *.png
 banco/
+*.pyc
+saida/
+saida.zip
+.DS_Store

@@ -59,8 +59,16 @@ class Column:
 
     @staticmethod
     def validate(kind, data):
+        if not data:
+            return True
         if kind == 'bigint':
-            if isinstance(data, int):
+            if isinstance(data, str):
+                try:
+                    n = int(data)
+                except ValueError:
+                    return False
+                return True
+            elif isinstance(data, int):
                 return True
             return False
         elif kind == 'varchar':
@@ -73,6 +81,49 @@ class Column:
             except:
                 return False
             return True
+        elif kind == 'datetime':
+            #TODO IMPLEMENTAR
+            return True
+        elif kind == 'bit':
+            if data in ("FALSE", "TRUE"):
+                return True
+            return False
+
+    @staticmethod
+    def convert(kind, data):
+        if kind == 'bigint':
+            if not data:
+                return None
+            if isinstance(data, str):
+                try:
+                    n = int(data)
+                except ValueError:
+                    raise Exception("Conversão inválida")
+                return n
+            elif isinstance(data, int):
+                return data
+        elif kind == 'varchar':
+            return str(data)
+        elif kind == 'numeric' or kind == 'decimal':
+            if not data:
+                return decimal.Decimal("0")
+            try:
+                val = decimal.Decimal(data)
+                return val
+            except:
+                pass
+            raise Exception("Conversão inválida")
+        elif kind == 'datetime':
+            #TODO IMPLEMENTAR
+            return data
+        elif kind == 'bit':
+            if not data:
+                return None
+            if data == "FALSE":
+                return False
+            elif data == "TRUE":
+                return True
+            raise Exception("Conversão inválida")
 
 
 class PrimaryKey(Column):
@@ -100,6 +151,9 @@ class Relationship:
         self._from = _from
         self._to = to
         self._on = on
+
+    def __str__(self):
+        return "{} to {}".format(self._from.name, self._to.name)
 
 class DataTable:
     """Representa uma Tabela de dados.
@@ -158,7 +212,7 @@ class DataTable:
 
     @property
     def cols(self):
-        return [x for x in filter(lambda x: not x.is_pk, self._columns)]
+        return self._columns
 
     def _validate_kind(self, kind):
         if not kind in ('bigint', 'numeric', 'varchar', 'datetime', 'decimal', 'bit',
@@ -188,13 +242,14 @@ class DataTable:
         self._referenced.append(relationship)
 
     def add_data(self, values):
-        for value, column in zip(values, self.cols):
+        for i, (value, column) in enumerate(zip(values, self.cols)):
             validate = Column.validate(column.kind, value)
             if not validate:
                 raise Exception("Data e Tipo Iválidos {} : {}".format(column.kind,
                                                                       value))
-            else:
-                self._data.append(values)
+            converted_value = Column.convert(column.kind, value)
+            values[i] = converted_value
+        self._data.append(tuple(values))
 
     def _get_indexes(self, args):
         cols = []
