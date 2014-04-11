@@ -1,5 +1,6 @@
-import decimal
 import unittest
+
+from decimal import Decimal
 
 from copa_transparente import domain
 
@@ -10,10 +11,23 @@ class ColumnTest(unittest.TestCase):
         self.assertTrue(domain.Column.validate('numeric', 10.1))
         self.assertTrue(domain.Column.validate('decimal', 10.1))
         self.assertTrue(domain.Column.validate('varchar', 'Texto'))
+        self.assertTrue(domain.Column.validate('decimal', ""))
+        self.assertFalse(domain.Column.validate('decimal', "s"))
         self.assertFalse(domain.Column.validate('varchar', 100))
         self.assertFalse(domain.Column.validate('bigint', 10.1))
-        self.assertFalse(domain.Column.validate('decimal', ""))
         self.assertFalse(domain.Column.validate('varchar', 1000.1))
+
+    def test_convert(self):
+        self.assertEqual(Decimal("0"), domain.Column.convert("decimal", "0"))
+        self.assertEqual(Decimal("0"), domain.Column.convert("numeric", "0"))
+        self.assertEqual(1, domain.Column.convert("int", 1))
+        self.assertEqual(1, domain.Column.convert("bigint", 1))
+        self.assertTrue(domain.Column.convert("bit", "TRUE"))
+        self.assertFalse(domain.Column.convert("bit", "FALSE"))
+        self.assertRaises(Exception, domain.Column.convert, ('bigint', 'i'))
+        self.assertRaises(Exception, domain.Column.convert, ('int', 'd'))
+        self.assertRaises(Exception, domain.Column.convert, ('numeric', 'd'))
+        self.assertRaises(Exception, domain.Column.convert, ('decimal', 'd'))
 
     def test__eq__(self):
         col1 = domain.Column("Id", "bigint")
@@ -98,21 +112,21 @@ class DataTableTest(unittest.TestCase):
         a_table = domain.DataTable('ExecucaoFinanceira')
         col = a_table.add_column('Id', 'bigint')
         col2 = a_table.add_column('Value', 'decimal')
-        a_table.add_data([1, decimal.Decimal("0")])
+        a_table.add_data([1, Decimal("0")])
 
     def test_add_data_invalid(self):
         a_table = domain.DataTable('ExecucaoFinanceira')
         col = a_table.add_column('Id', 'bigint')
         col2 = a_table.add_column('Value', 'decimal')
-        self.assertRaises(Exception,  a_table.add_data, ([1, ""]))
+        self.assertRaises(Exception,  a_table.add_data, ([1, "scd"]))
 
     def test_get_indexes(self):
         a_table = domain.DataTable('ExecucaoFinanceira')
         col = a_table.add_column('Id', 'bigint')
         col2 = a_table.add_column('Value', 'decimal')
 
-        a_table._data = [(1, decimal.Decimal("0.0")),
-                         (2, decimal.Decimal("1.0"))]
+        a_table._data = [(1, Decimal("0.0")),
+                         (2, Decimal("1.0"))]
 
         self.assertEqual([0], a_table._get_indexes(("Id",)))
         self.assertEqual([1], a_table._get_indexes(("Value",)))
@@ -124,9 +138,9 @@ class DataTableTest(unittest.TestCase):
         col = a_table.add_column('Id', 'bigint')
         col2 = a_table.add_column('Value', 'decimal')
 
-        a_table._data = [(1, decimal.Decimal("0.0")),
-                         (2, decimal.Decimal("1.0"))]
+        a_table._data = [(1, Decimal("0.0")),
+                         (2, Decimal("1.0"))]
 
         result = list(a_table._select(("Id", "Value")))
-        self.assertEqual([(1, decimal.Decimal("0.0")),
-                          (2, decimal.Decimal("1.0"))], result)
+        self.assertEqual([(1, Decimal("0.0")),
+                          (2, Decimal("1.0"))], result)
