@@ -8,32 +8,32 @@ pp = pprint.PrettyPrinter(indent=4)
 
 def main():
     relations = {}
-    in_file = open("grafo.pickle", "rb")
+    in_file = open("grafo1.pickle", "rb")
     grafo = pickle.loads(in_file.read())
     in_file.close()
 
-    in_file = open("relations.pickle", "rb")
-    all_relations = pickle.loads(in_file.read())
-    in_file.close()
-
     table_name = sys.argv[1]
-    tabela = grafo[table_name]
-    relations = all_relations['relations'][table_name]
-    reverse_relations = all_relations['reverse'][table_name]
-    print("PK  {:<30} Tipo {:<20}".format(tabela[0][0], tabela[0][1]))
-    for column in tabela[1:]:
-        found = 0
-        for relation in relations:
-            if relation[1] == column[0]:
-                found = 1
-                print("FK  {:<30} Tipo {:<20}".format(column[0], column[1]))
-        if not found:
-            print("Col {:<30} Tipo {:<20}".format(column[0], column[1]))
+    table = grafo[table_name]
+
+    pks = {}
+    for _table_name, meta in grafo.items():
+        pk = meta.pk
+        pks[pk.name] = meta
+
+    print("PK  {:<30} Tipo {:<20}".format(table.pk.name, table.pk.kind))
+
+    for column in table.cols[2:]:
+        if column.name in pks:
+            print("FK  {:<30} Tipo {:<20}".format(column.name, column.kind))
+        else:
+            print("Col {:<30} Tipo {:<20}".format(column.name, column.kind))
 
     print("{0} -> Outras".format(table_name))
-    pp.pprint(relations)
+    for relationship in table.references:
+        print("   {}".format(relationship))
     print("Outras -> {0}".format(table_name))
-    pp.pprint(reverse_relations)
+    for relationship in table.referenced:
+        print("   {}".format(relationship))
 
 if __name__ == "__main__":
     main()

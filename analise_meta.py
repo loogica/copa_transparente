@@ -6,7 +6,9 @@ import pprint
 dotviz = '''
 digraph Relations {
     node [shape = rectangle];
-%s}
+    %s
+    %s
+}
 '''
 
 pp = pprint.PrettyPrinter(indent=4)
@@ -16,30 +18,27 @@ def main():
     relations = {}
     reverse_relations = {}
 
-    in_file = open("grafo.pickle", "rb")
+    in_file = open("grafo1.pickle", "rb")
     grafo = pickle.loads(in_file.read())
     in_file.close()
 
     for table, meta in grafo.items():
-        pk = meta[0][0]
-        columns = meta[1:]
-        context = {'table': table, 'pk': pk}
-        pks[pk] = table
-        reverse_relations[table] = []
-        for rel_table, rel_meta in grafo.items():
-            if rel_table != table:
-                rel_pk = rel_meta[0][0]
-                rel_columns = rel_meta[1:]
-                for column in rel_columns:
-                    if column[0] == pk:
-                        reverse_relations[table].append((rel_table, rel_pk))
+        pk = meta.pk
+        pks[pk.name] = meta
 
     for table, meta in grafo.items():
-        columns = meta[1:]
+        columns = meta.cols[2:]
         relations[table] = []
         for column in columns:
-            if column[0] in pks:
-                relations[table].append((pks[column[0]], column[0]))
+            if column.name in pks:
+                relations[table].append((pks[column.name].name, column.name))
+
+    tables = ""
+    for table, meta in grafo.items():
+        inner_text = "{}\n\n".format(table)
+        for column in meta.cols:
+            inner_text += "{}\n".format(column.name)
+        tables += '{} [label="{}"];\n'.format(table, inner_text)
 
     out_file = open("relations.pickle", "wb")
     all_relations = dict(pks=pks, relations=relations, reverse=reverse_relations)
@@ -51,6 +50,7 @@ def main():
         for relation in relations:
             stringio.write('    %s -> %s [label = "%s"];\n' % (name, relation[0], relation[1]))
 
-    print(dotviz % stringio.getvalue())
+    print(dotviz % (tables, stringio.getvalue()))
 
-main()
+if __name__ == "__main__":
+    main()
