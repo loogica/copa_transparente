@@ -7,3 +7,4 @@ banco_*
 saida/
 saida.zip
 .DS_Store
+htmlcov/
