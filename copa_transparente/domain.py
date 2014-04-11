@@ -61,7 +61,7 @@ class Column:
     def validate(kind, data):
         if not data:
             return True
-        if kind == 'bigint':
+        if kind == 'bigint' or kind == 'int':
             if isinstance(data, str):
                 try:
                     n = int(data)
@@ -91,7 +91,7 @@ class Column:
 
     @staticmethod
     def convert(kind, data):
-        if kind == 'bigint':
+        if kind == 'bigint' or kind == 'int':
             if not data:
                 return None
             if isinstance(data, str):
