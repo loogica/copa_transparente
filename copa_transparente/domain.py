@@ -34,8 +34,16 @@ class Column:
                                         self._kind,
                                         self._description)
         if self._is_pk:
-            _str = "({}) {}".format("PK", _str)
+            _str = "({}) {} : {}".format("PK", self._name, self._kind)
         return _str
+
+    def __eq__(self, obj):
+        return self._name == obj.name
+
+    def __hash__(self):
+        return hash((self._name,
+                     self._description,
+                     self._kind))
 
     @property
     def name(self):

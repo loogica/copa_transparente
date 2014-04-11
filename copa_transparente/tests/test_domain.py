@@ -5,10 +5,44 @@ from copa_transparente import domain
 
 
 class ColumnTest(unittest.TestCase):
-    def test_validate_as_static_method(self):
+    def test_validate(self):
         self.assertTrue(domain.Column.validate('bigint', 100))
         self.assertTrue(domain.Column.validate('numeric', 10.1))
+        self.assertTrue(domain.Column.validate('decimal', 10.1))
         self.assertTrue(domain.Column.validate('varchar', 'Texto'))
+        self.assertFalse(domain.Column.validate('varchar', 100))
+        self.assertFalse(domain.Column.validate('bigint', 10.1))
+        self.assertFalse(domain.Column.validate('decimal', ""))
+        self.assertFalse(domain.Column.validate('varchar', 1000.1))
+
+    def test__eq__(self):
+        col1 = domain.Column("Id", "bigint")
+        col2 = domain.Column("Id", "bigint")
+        self.assertEqual(col1, col2)
+
+    def test__hash__(self):
+        col1 = domain.Column("Id", "bigint")
+        col2 = domain.Column("Id", "bigint")
+        self.assertEqual(col1.__hash__(), col2.__hash__())
+
+    def test__str__(self):
+        col = domain.Column("Id", "bigint")
+        self.assertEqual("Col: Id : bigint ", str(col))
+
+    def test_properties(self):
+        col = domain.Column("Id", "bigint")
+        self.assertEqual("Id", col.name)
+        self.assertEqual("bigint", col.kind)
+
+
+class PrimaryKeyTest(unittest.TestCase):
+    def test_is_pk(self):
+        col = domain.PrimaryKey("Id", "bigint")
+        self.assertTrue(col.is_pk)
+
+    def test__str__(self):
+        col = domain.PrimaryKey("Id", "bigint")
+        self.assertEqual("(PK) Id : bigint", str(col))
 
 
 class DataTableTest(unittest.TestCase):
