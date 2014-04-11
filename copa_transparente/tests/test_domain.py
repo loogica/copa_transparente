@@ -94,6 +94,18 @@ class DataTableTest(unittest.TestCase):
         self.assertEqual(1, len(b_table.referenced))
         self.assertEqual(0, len(b_table.references))
 
+    def test_add_data(self):
+        a_table = domain.DataTable('ExecucaoFinanceira')
+        col = a_table.add_column('Id', 'bigint')
+        col2 = a_table.add_column('Value', 'decimal')
+        a_table.add_data([1, decimal.Decimal("0")])
+
+    def test_add_data_invalid(self):
+        a_table = domain.DataTable('ExecucaoFinanceira')
+        col = a_table.add_column('Id', 'bigint')
+        col2 = a_table.add_column('Value', 'decimal')
+        self.assertRaises(Exception,  a_table.add_data, ([1, ""]))
+
     def test_get_indexes(self):
         a_table = domain.DataTable('ExecucaoFinanceira')
         col = a_table.add_column('Id', 'bigint')

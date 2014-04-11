@@ -187,6 +187,15 @@ class DataTable:
         relationship = Relationship(name, by, self, on)
         self._referenced.append(relationship)
 
+    def add_data(self, values):
+        for value, column in zip(values, self.cols):
+            validate = Column.validate(column.kind, value)
+            if not validate:
+                raise Exception("Data e Tipo Iválidos {} : {}".format(column.kind,
+                                                                      value))
+            else:
+                self._data.append(values)
+
     def _get_indexes(self, args):
         cols = []
         for name in args:
