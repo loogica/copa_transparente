@@ -67,7 +67,7 @@ class Column:
             if isinstance(data, str):
                 return True
             return False
-        elif kind == 'numeric':
+        elif kind == 'numeric' or kind == 'decimal':
             try:
                 val = decimal.Decimal(data)
             except:
