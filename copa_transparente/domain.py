@@ -266,6 +266,12 @@ class DataTable:
         indexes = self._get_indexes(args)
         for data in self._data:
             row_data = []
+            _fail = False
             for i in indexes:
-                row_data.append(data[i])
-            yield tuple(row_data)
+                try:
+                    row_data.append(data[i])
+                except Exception:
+                    _fail = True
+                    pass
+            if not _fail:
+                yield tuple(row_data)
