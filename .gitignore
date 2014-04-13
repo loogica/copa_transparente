@@ -9,3 +9,4 @@ saida.zip
 .DS_Store
 htmlcov/
 hist/
+.coverage
