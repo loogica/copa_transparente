@@ -241,14 +241,15 @@ class DataTable:
         relationship = Relationship(name, by, self, on)
         self._referenced.append(relationship)
 
-    def add_data(self, values):
-        for i, (value, column) in enumerate(zip(values, self.cols)):
-            validate = Column.validate(column.kind, value)
-            if not validate:
-                raise Exception("Data e Tipo Iválidos {} : {}".format(column.kind,
-                                                                      value))
-            converted_value = Column.convert(column.kind, value)
-            values[i] = converted_value
+    def add_data(self, values, validate=True):
+        if validate:
+            for i, (value, column) in enumerate(zip(values, self.cols)):
+                validate = Column.validate(column.kind, value)
+                if not validate:
+                    raise Exception("Data e Tipo Iválidos {} : {}"
+                                    .format(column.kind, value))
+                converted_value = Column.convert(column.kind, value)
+                values[i] = converted_value
         self._data.append(tuple(values))
 
     def _get_indexes(self, args):

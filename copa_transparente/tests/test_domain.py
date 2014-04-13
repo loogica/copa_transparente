@@ -120,6 +120,11 @@ class DataTableTest(unittest.TestCase):
         col2 = a_table.add_column('Value', 'decimal')
         self.assertRaises(Exception,  a_table.add_data, ([1, "scd"]))
 
+        a_table = domain.DataTable('ExecucaoFinanceira')
+        col = a_table.add_column('Id', 'bigint')
+        col2 = a_table.add_column('Value', 'decimal')
+        a_table.add_data([1, "scd"], validate=False)
+
     def test_get_indexes(self):
         a_table = domain.DataTable('ExecucaoFinanceira')
         col = a_table.add_column('Id', 'bigint')
