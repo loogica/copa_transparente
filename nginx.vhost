@@ -1,0 +1,10 @@
+server {
+    listen 80;
+    server_name copatransparente.org;
+
+    root /opt/apps/copatransparente.org/;
+
+    location / {
+        index index.html;
+    }
+}

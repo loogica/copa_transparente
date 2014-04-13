@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="copaapp">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Dados sobre gastos públicos com a Copa do Mundo de 2014">
+    <title>Copa Transparente Cidadã</title>
+    <!-- Bootstrap core CSS -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+    <script src="/static/js/libs/jquery-1.7.2.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.1/angular.min.js"></script>
+    <!-- Custom styles for this template -->
+    <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
+    <style type="text/css">
+        .slice text {
+            font-size: 8pt;
+            font-family: Arial;
+        }   
+    </style>
+    <!-- Just for debugging purposes. Don't actually copy this line! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body ng-controller="CopaController" ng-cloak>
+    <div class="container">
+      <div class="header">
+        <ul class="nav nav-pills pull-right">
+          <li id="li_main"><a href="#Total" ng-click="init()">Gasto Total</a></li>
+          <li id="li_r1"><a href="#ExeXLic" ng-click="show_report_1()">Execução X Licitação</a></li>
+          <!--li><a href="#">About</a></li-->
+        </ul>
+        <h3 class="text-muted">Copa Transparente Cidadã</h3>
+      </div>
+      <div class="jumbotron" ng-show="show_main">
+        <h1>Gasto Total*: {{ total }}</h1>
+        <p class="lead">*{{ percentual_dados_desconsiderados }} dos dados não seguem convenções de formatação e não podem ser considerados.</p>
+        <p class="lead">Última atualização: {{ atualizado }}</p>
+      </div>
+      <div class="row marketing" ng-show="show_main">
+        <div class="col-lg-6">
+          <h4>O projeto Copa Transparente Cidadã</h4>
+          <p>O Copa Transparente é um projeto <b>sem fins lucrativos</b>, <b>sem nenhum tipo de associação com partidos ou organizações políticas</b>, projetado
+          para manter atualizados os dados do portal <a href="http://copatransparente.gov.br">Copa Transparente</a> do Governo.</p>
+          <h4>Problema</h4>
+          <p>O Governo disponibiliza os dados em um formato pouco amigável para extração de informações cruzadas. Somar valores, relacionar colunas
+             e entidades(Execuções Financeiras, Licitações, Empreendimentos e outras) se torna muito trabalhoso e sucetível a erros, se feito de forma
+             semi-automatizada ou manual.</p>
+        </div>
+        <div class="col-lg-6">
+          <h4>Solução</h4>
+          <p>Foi criado um software que faz o download de um arquivo de uma URL pública do governo e gera esse site para
+             que os dados estejam sempre atualizados e trabalhados pro usuário final, seja ele um cidadão, como eu, ou um profissional.</p>
+          <h4>Código <b>Livre</b></h4>
+          <p>Você pode obter o código do programa que faz o download e gera o site aqui: <a href="https://github.com/loogica/copa_transparente/">
+             https://github.com/loogica/copa_transparente</a></p>
+        </div>
+      </div>
+      <div class="row" ng-show="show_r1">
+        <center><div id="pizza1"></div></center>
+        <p class="lead">Execuções Financeiras sem ligação com Licitação: {{ total_sem_ref_lic }}</p>
+        <p class="lead">Execuções Financeiras com ligação com Licitação: {{ total_com_ref_lic }}</p>
+      </div>
+      <div class="footer">
+        <p>&copy; loogica</p>
+      </div>
+    </div> <!-- /container -->
+    <script src="/static/js/moment.min.js"></script>
+    <script src="/static/js/moment-pt-br.js"></script>
+    <script src="/static/js/underscore-min.js"></script>
+    <script src="/static/js/main.js"></script>
+    <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js?2.1.3"></script>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+  </body>
+</html>
