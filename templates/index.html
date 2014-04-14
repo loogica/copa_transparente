@@ -12,8 +12,9 @@
     <!-- Optional theme -->
     <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
     <script src="/static/js/libs/jquery-1.7.2.min.js"></script>
+    <script src="/static/js/libs/underscore-min.js"></script>
     <!-- Latest compiled and minified JavaScript -->
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.1/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.1/angular-route.min.js"></script>
     <!-- Custom styles for this template -->
@@ -48,7 +49,6 @@
       </div>
     </div> <!-- /container -->
     <script src="/static/js/main.js"></script>
-    <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js?2.1.3"></script>
     <script type=text/ng-template id="inicio.html">
           <div class="jumbotron" ng-show="show_main">
             <h1>Gasto Total*: {{ total }}</h1>
@@ -59,7 +59,8 @@
             <div class="col-lg-6">
               <h4>O projeto Copa Transparente Cidadã</h4>
               <p>O Copa Transparente é um projeto <b>sem fins lucrativos</b>, <b>sem nenhum tipo de associação com partidos ou organizações políticas</b>, projetado
-              para manter atualizados os dados do portal <a href="http://copatransparente.gov.br">Copa Transparente</a> do Governo.</p>
+              para manter consultas, de interesse público, nos dados do portal <a href="http://www.copatransparente.gov.br">Copa Transparente</a> do Governo,
+              atualizadas constantemente para o usuário final.</p>
               <h4>Problema</h4>
               <p>O Governo disponibiliza os dados em um formato pouco amigável para extração de informações cruzadas. Somar valores, relacionar colunas
                 e entidades(Execuções Financeiras, Licitações, Empreendimentos e outras) se torna muito trabalhoso e sucetível a erros, se feito de forma
@@ -77,21 +78,31 @@
     </script>
     <script type=text/ng-template id="r1.html">
           <div class="row" ng-show="show_r1">
-            <center><div id="pizza1"></div></center>
-            <p class="lead">Execuções Financeiras sem ligação com Licitação: {{ total_sem_ref_lic }}</p>
-            <p class="lead">Execuções Financeiras com ligação com Licitação: {{ total_com_ref_lic }}</p>
+            <div class="col-lg-12">
+              <div id="pizza1" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+              <p class="lead">Execuções Financeiras sem ligação com Licitação: {{ total_sem_ref_lic }}</p>
+              <p class="lead">Execuções Financeiras com ligação com Licitação: {{ total_com_ref_lic }}</p>
+            </div>
           </div>
     </script>
     <script type=text/ng-template id="r2.html">
           <div class="row" ng-show="show_favo">
-            <center><div id="pizza2">
-            <p>Execuções Financeiras agrupadas por Favorecidos (Maior valor 2 BI)</p>
-            </div></center>
+            <div class="col-lg-12">
+              <h2>Favorecidos que receberam mais de 1 Bilhão</h2>
+              <div id="pizza2" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+              <h2>Favorecidos que receberam mais de 100 Milhões</h2>
+              <div id="pizza21" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+              <h2>Favorecidos que receberam mais de 10 Milhões</h2>
+              <div id="pizza22" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+              <h2>Favorecidos que receberam mais de 1 Milhão</h2>
+              <div id="pizza23" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+            </div>
           </div>
     </script>
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
+    <script src="http://code.highcharts.com/highcharts.js"></script>
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
