@@ -59,6 +59,7 @@ copa.controller('CopaController',
                 $scope.total_com_ref_lic = data.total_com_ref_lic;
                 $scope.percentual_dados_desconsiderados = data.percentual_dados_desconsiderados;
                 $scope.atualizado = data.atualizado;
+                $scope.total_contrapartida = data.total_contrapartida;
                 d_total_sem_ref_lic = data.d_total_sem_ref_lic;
                 d_total_com_ref_lic = data.d_total_com_ref_lic;
             }).error(function(data, status, header, config) {
@@ -91,6 +92,7 @@ copa.controller('R1Controller',
                 $scope.total_com_ref_lic = data.total_com_ref_lic;
                 $scope.percentual_dados_desconsiderados = data.percentual_dados_desconsiderados;
                 $scope.atualizado = data.atualizado;
+                $scope.total_contrapartida = data.total_contrapartida;
                 d_total_sem_ref_lic = data.d_total_sem_ref_lic;
                 d_total_com_ref_lic = data.d_total_com_ref_lic;
                 data = [{"name":"Sem Ref. Licitação", "y": d_total_sem_ref_lic},
@@ -124,6 +126,12 @@ copa.controller('R2Controller',
                     data = _.filter(original_data, function(el) {
                         return el.y > 1000000000;
                     });
+
+                    $scope.total_1_b = _.reduce(data,
+                        function (x, w) {
+                            return {y: x.y + w.y};
+                        }, {y: 0}).y / 1000000000;
+
                     pie("#pizza2", data);
                     data = _.filter(original_data, function(el) {
                         return el.y > 100000000;
@@ -142,6 +150,30 @@ copa.controller('R2Controller',
                 });
             } else {
 
+                data = _.filter(original_data, function(el) {
+                    return el.y > 1000000000;
+                });
+
+                $scope.total_1_b = _.reduce(data,
+                    function (x, w) {
+                        return {y: x.y + w.y};
+                    }, {y: 0}).y / 1000000000;
+
+                pie("#pizza2", data);
+                data = _.filter(original_data, function(el) {
+                    return el.y > 100000000;
+                });
+                pie("#pizza21", data);
+                data = _.filter(original_data, function(el) {
+                    return el.y > 10000000;
+                });
+                pie("#pizza22", data);
+                data = _.filter(original_data, function(el) {
+                    return el.y > 1000000;
+                });
+                pie("#pizza23", data);
+
+
             }
         };
         $scope.show_report_favo();
@@ -153,7 +185,7 @@ copa.config(function ($routeProvider) {
                                     controller: 'CopaController'})
                   .when('/ExecucaoXLicitacao', {templateUrl: 'r1.html',
                                     controller: 'R1Controller'})
-                  .when('/Favorecidos', {templateUrl: 'r2.html',
+                  .when('/Contratados', {templateUrl: 'r2.html',
                                     controller: 'R2Controller'})
                    .otherwise({redirectTo: '/inicio'});
 });
