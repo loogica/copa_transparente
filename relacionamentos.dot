@@ -1,7 +1,463 @@
 
 digraph Relations {
     node [shape = rectangle];
-    Log -> Empreendimento [label = "IdEmpreendimento"];
+    RecursoPrevisto [label="RecursoPrevisto
+
+IdRecursoPrevisto
+IdEmpreendimento
+ValRecurso
+ValRecursoContrapartida
+FlgAtivo
+IdInstituicao
+IdInstituicaoContrapartida
+IdRecursoOperacao
+NumRecursoPrevisto
+FlgExclusaoDependencia
+FlgPublicadoExclusao
+"];
+FaseLicitacao [label="FaseLicitacao
+
+IdFaseLicitacao
+DescFaseLicitacao
+"];
+CidadeSede [label="CidadeSede
+
+IdCidadeSede
+DescCidadeSede
+IdUf
+"];
+TipoLicenca [label="TipoLicenca
+
+IdTipoLicenca
+DescTipoLicenca
+"];
+Licenca [label="Licenca
+
+IdLicenca
+IdEmpreendimento
+IdTipoLicenca
+IdLicencaAmbiental
+FlgDispensaLicenca
+NumLicenca
+DescLicenca
+DatExpedicao
+DatVencimento
+IdFaseGrupo
+DatRenovacaoLicenca
+DescRenovacaoLicenca
+FlgAtivo
+IdInstituicao
+IdLicencaRenovacao
+FlgExclusaoDependencia
+"];
+Andamento [label="Andamento
+
+IdAndamento
+DescAndamento
+"];
+TipoEtapa [label="TipoEtapa
+
+IdTipoEtapa
+DescTipoEtapa
+"];
+AndamentoFinanceiro [label="AndamentoFinanceiro
+
+IdAndamentoFinanceiro
+DescAndamentoFinanceiro
+"];
+Grupo [label="Grupo
+
+IdGrupo
+IdEntidade
+IdGrupo_Entidade
+"];
+Ano [label="Ano
+
+IdAno
+NumAno
+"];
+RecursoCaptado [label="RecursoCaptado
+
+IdRecursoCaptado
+IdTipoRecursoCaptado
+NumDocumento
+DatAssinatura
+NumOperacao
+DatInicioVigencia
+DatFinalVigencia
+IdInstituicaoCedente
+IdInstituicaoBeneficiario
+DescObjeto
+DescGarantia
+ValCedido
+ValContrapartida
+FlgAtivo
+IdEmpreendimento
+IdFaseGrupo
+ValTotal
+IdTipoRecursoTransferencia
+FlgExclusaoDependencia
+"];
+TipoArquivo [label="TipoArquivo
+
+IdTipoArquivo
+DescTipoArquivo
+"];
+Empreendimento [label="Empreendimento
+
+IdEmpreendimento
+DescEmpreendimento
+IdCidadeSede
+IdTema
+IdAgrupador
+FlgFonteMatriz
+FlgDireto
+DescObservacao
+IdAndamento
+FlgAtivo
+IdFaseGrupo
+TxtExplicativoInvestimento
+TxtExplicativoRecursos
+TxtExplicativoEtapas
+IdProjeto
+IdInstituicao
+ValTotalPrevisto
+"];
+TipoLogOperacao [label="TipoLogOperacao
+
+IdTipoLogOperacao
+DescTipoLogOperacao
+"];
+Etapa [label="Etapa
+
+IdEtapa
+IdEmpreendimento
+IdTipoEtapa
+DatInicio
+DatFim
+DatReprogramacao
+DatInicioEfetiva
+DatFimEfetiva
+DatReprogramacaoEfetiva
+NumEtapa
+FlgAtivo
+FlgExclusaoDependencia
+FlgPublicadoExclusao
+"];
+TipoAlerta [label="TipoAlerta
+
+IdTipoAlerta
+DescTipoAlerta
+"];
+Licitacao [label="Licitacao
+
+IdLicitacao
+NumLicitacao
+IdAno
+IdFaseGrupo
+DatPublicacao
+FlgRecursoPublicoFederal
+IdModalidade
+IdTipoLicitacao
+ValEstimado
+NumEmpenho
+ValEmpenho
+DescObjeto
+IdEmpreendimento
+FlgAtivo
+IdFaseLicitacao
+FlgExclusaoDependencia
+"];
+RelatorioExecucao [label="RelatorioExecucao
+
+IdRelatorioExecucao
+DatInicial
+DatFinal
+DescResumo
+IdEmpreendimento
+ValPercentualConcluido
+IdFaseGrupo
+FlgAtivo
+NumRelatorioExecucao
+FlgExclusaoDependencia
+"];
+TipoLicitacao [label="TipoLicitacao
+
+IdTipoLicitacao
+DescTipoLicitacao
+"];
+ProgramaGoverno [label="ProgramaGoverno
+
+IdProgramaGoverno
+NomProgramaGoverno
+NumProgramaGoverno
+"];
+TipoExecucaoFinanceira [label="TipoExecucaoFinanceira
+
+IdTipoExecucaoFinanceira
+DescTipoExecucaoFinanceira
+IdTipoExecucaoFinanceiraPai
+"];
+TipoRecurso [label="TipoRecurso
+
+IdTipoRecurso
+DescTipoRecurso
+"];
+TipoInstituicao [label="TipoInstituicao
+
+IdTipoInstituicao_RecursoOperacao
+IdTipoInstituicao
+IdRecursoOperacao
+"];
+Recurso [label="Recurso
+
+IdRecurso
+IdEmpreendimento
+IdInstituicao
+DescObjeto
+ValComplementar
+FlgAtivo
+IdTipoRecurso
+IdFaseGrupo
+ValInvestimento
+FlgExclusaoDependencia
+"];
+TipoDesembolso [label="TipoDesembolso
+
+IdTipoDesembolso
+DescTipoDesembolso
+"];
+AndamentoLicenca [label="AndamentoLicenca
+
+IdAndamentoLicenca
+DescAndamentoLicenca
+"];
+Modalidade [label="Modalidade
+
+IdModalidade
+DescModalidade
+"];
+Instituicao [label="Instituicao
+
+IdInstituicao
+IdTipoInstituicao
+NomInstituicao
+NumCnpj
+"];
+FonteRecurso [label="FonteRecurso
+
+IdFonteRecurso
+NumFonteRecurso
+NomFonteRecurso
+"];
+Projeto [label="Projeto
+
+IdProjeto
+DescProjeto
+"];
+Log [label="Log
+
+IdLog
+IdEmpreendimento
+IdEtapa
+IdRecursoPrevisto
+IdTipoLogOperacao
+IdUsuario
+NomUsuario
+FlgHomologado
+DthLog
+DescMensagem
+IdGrupo
+IdEntidade
+IdArquivo
+IdInstituicao
+NomInstituicao
+IdRecursoCaptado
+IdAditivo
+IdDesembolso
+IdLicitacao
+IdExecucaoFinanceira
+IdLicenca
+IdRelatorioExecucao
+IdRecurso
+"];
+Tema [label="Tema
+
+IdTema
+DescTema
+"];
+TipoRecursoTransferencia [label="TipoRecursoTransferencia
+
+IdTipoRecursoTransferencia
+DescTipoRecursoTransferencia
+"];
+Desembolso [label="Desembolso
+
+IdDesembolso
+IdRecursoCaptado
+DatDesembolso
+ValDesembolso
+IdTipoDesembolso
+FlgAtivo
+DescDocumentoAutorizacao
+IdExecucaoFinanceira
+FlgExclusaoDependencia
+FlgPublicadoExclusao
+"];
+FaseGrupo [label="FaseGrupo
+
+IdFaseGrupo
+DescFaseGrupo
+"];
+FundamentoLegal [label="FundamentoLegal
+
+IdFundamentoLegal
+DescFundamentoLegal
+"];
+AcaoGoverno [label="AcaoGoverno
+
+IdAcaoGoverno
+NomAcaoGoverno
+NumAcaoGoverno
+"];
+Entidade [label="Entidade
+
+IdEntidade_TipoArquivo
+IdEntidade
+IdTipoArquivo
+"];
+TipoRecursoCaptado [label="TipoRecursoCaptado
+
+IdTipoRecursoCaptado
+DescTipoRecursoCaptado
+"];
+LicencaAmbiental [label="LicencaAmbiental
+
+IdLicencaAmbiental
+DescLicencaAmbiental
+"];
+Agrupador [label="Agrupador
+
+IdAgrupador
+DescAgrupador
+"];
+ExecucaoFinanceira [label="ExecucaoFinanceira
+
+IdExecucaoFinanceira
+IdEmpreendimento
+NumDocumento
+IdAndamentoFinanceiro
+IdTipoExecucaoFinanceira
+DatAssinatura
+DatInicioVigencia
+DatFinalVigencia
+IdInstituicaoContratante
+IdTipoDocumento
+IdInstituicaoContratado
+IdPessoaFisicaContratado
+ValContrato
+ValContrapartida
+ValTotal
+DescObjeto
+IdLicitacao
+FlgInexibilidadeLicitacao
+FlgDispensaLicitacao
+IdFundamentoLegal
+IdFaseGrupo
+FlgAtivo
+FlgExclusaoDependencia
+"];
+PessoaFisica [label="PessoaFisica
+
+IdPessoaFisica
+NomPessoaFisica
+NumCpf
+"];
+TipoDocumento [label="TipoDocumento
+
+IdTipoDocumento
+DescTipoDocumento
+"];
+RecursoOperacao [label="RecursoOperacao
+
+IdRecursoOperacao
+DescRecursoOperacao
+DescPapel
+DescPapelContraPartida
+"];
+Aditivo [label="Aditivo
+
+IdAditivo
+NumAditivo
+DatAssinatura
+DatInicioVigencia
+DatFinalVigencia
+ValTotal
+DescObjeto
+FlgAtivo
+IdRecursoCaptado
+ValCedido
+ValContrapartida
+IdExecucaoFinanceira
+FlgExclusaoDependencia
+FlgPublicadoExclusao
+"];
+Alerta [label="Alerta
+
+IdAlerta
+DthAlerta
+IdRecursoPrevisto
+IdEtapa
+IdEmpreendimento
+DescMensagem
+FlgHomologado
+IdGrupo
+IdEntidade
+NomUsuario
+IdUsuario
+IdTipoLogOperacao
+IdArquivo
+IdInstituicao
+NomInstituicao
+IdLicitacao
+IdRecursoCaptado
+IdDesembolso
+IdAditivo
+IdExecucaoFinanceira
+IdLicenca
+IdRelatorioExecucao
+IdRecurso
+"];
+
+        RecursoPrevisto -> Instituicao [label = "IdInstituicao"];
+    RecursoPrevisto -> RecursoOperacao [label = "IdRecursoOperacao"];
+    Licenca -> TipoLicenca [label = "IdTipoLicenca"];
+    Licenca -> LicencaAmbiental [label = "IdLicencaAmbiental"];
+    Licenca -> FaseGrupo [label = "IdFaseGrupo"];
+    Licenca -> Instituicao [label = "IdInstituicao"];
+    Empreendimento -> CidadeSede [label = "IdCidadeSede"];
+    Empreendimento -> Tema [label = "IdTema"];
+    Empreendimento -> Agrupador [label = "IdAgrupador"];
+    Empreendimento -> Andamento [label = "IdAndamento"];
+    Empreendimento -> FaseGrupo [label = "IdFaseGrupo"];
+    Empreendimento -> Projeto [label = "IdProjeto"];
+    Empreendimento -> Instituicao [label = "IdInstituicao"];
+    Etapa -> TipoEtapa [label = "IdTipoEtapa"];
+    RecursoCaptado -> Empreendimento [label = "IdEmpreendimento"];
+    RecursoCaptado -> FaseGrupo [label = "IdFaseGrupo"];
+    RecursoCaptado -> TipoRecursoTransferencia [label = "IdTipoRecursoTransferencia"];
+    Licitacao -> Ano [label = "IdAno"];
+    Licitacao -> FaseGrupo [label = "IdFaseGrupo"];
+    Licitacao -> Modalidade [label = "IdModalidade"];
+    Licitacao -> TipoLicitacao [label = "IdTipoLicitacao"];
+    Licitacao -> Empreendimento [label = "IdEmpreendimento"];
+    Licitacao -> FaseLicitacao [label = "IdFaseLicitacao"];
+    RelatorioExecucao -> Empreendimento [label = "IdEmpreendimento"];
+    RelatorioExecucao -> FaseGrupo [label = "IdFaseGrupo"];
+    TipoInstituicao -> RecursoOperacao [label = "IdRecursoOperacao"];
+    Recurso -> Instituicao [label = "IdInstituicao"];
+    Recurso -> TipoRecurso [label = "IdTipoRecurso"];
+    Recurso -> FaseGrupo [label = "IdFaseGrupo"];
     Log -> Etapa [label = "IdEtapa"];
     Log -> RecursoPrevisto [label = "IdRecursoPrevisto"];
     Log -> TipoLogOperacao [label = "IdTipoLogOperacao"];
@@ -15,37 +471,17 @@ digraph Relations {
     Log -> Licenca [label = "IdLicenca"];
     Log -> RelatorioExecucao [label = "IdRelatorioExecucao"];
     Log -> Recurso [label = "IdRecurso"];
-    RecursoCaptado -> TipoRecursoCaptado [label = "IdTipoRecursoCaptado"];
-    RecursoCaptado -> Empreendimento [label = "IdEmpreendimento"];
-    RecursoCaptado -> FaseGrupo [label = "IdFaseGrupo"];
-    RecursoCaptado -> TipoRecursoTransferencia [label = "IdTipoRecursoTransferencia"];
-    Empreendimento -> CidadeSede [label = "IdCidadeSede"];
-    Empreendimento -> Tema [label = "IdTema"];
-    Empreendimento -> Agrupador [label = "IdAgrupador"];
-    Empreendimento -> Andamento [label = "IdAndamento"];
-    Empreendimento -> FaseGrupo [label = "IdFaseGrupo"];
-    Empreendimento -> Projeto [label = "IdProjeto"];
-    Empreendimento -> Instituicao [label = "IdInstituicao"];
-    Entidade -> TipoArquivo [label = "IdTipoArquivo"];
-    RelatorioExecucao -> Empreendimento [label = "IdEmpreendimento"];
-    RelatorioExecucao -> FaseGrupo [label = "IdFaseGrupo"];
-    Licitacao -> Ano [label = "IdAno"];
-    Licitacao -> FaseGrupo [label = "IdFaseGrupo"];
-    Licitacao -> Modalidade [label = "IdModalidade"];
-    Licitacao -> TipoLicitacao [label = "IdTipoLicitacao"];
-    Licitacao -> Empreendimento [label = "IdEmpreendimento"];
-    Licitacao -> FaseLicitacao [label = "IdFaseLicitacao"];
-    RecursoPrevisto -> Empreendimento [label = "IdEmpreendimento"];
-    RecursoPrevisto -> Instituicao [label = "IdInstituicao"];
-    RecursoPrevisto -> RecursoOperacao [label = "IdRecursoOperacao"];
-    Desembolso -> RecursoCaptado [label = "IdRecursoCaptado"];
     Desembolso -> TipoDesembolso [label = "IdTipoDesembolso"];
     Desembolso -> ExecucaoFinanceira [label = "IdExecucaoFinanceira"];
-    Recurso -> Empreendimento [label = "IdEmpreendimento"];
-    Recurso -> Instituicao [label = "IdInstituicao"];
-    Recurso -> TipoRecurso [label = "IdTipoRecurso"];
-    Recurso -> FaseGrupo [label = "IdFaseGrupo"];
-    TipoInstituicao -> RecursoOperacao [label = "IdRecursoOperacao"];
+    Aditivo -> RecursoCaptado [label = "IdRecursoCaptado"];
+    Aditivo -> ExecucaoFinanceira [label = "IdExecucaoFinanceira"];
+    Entidade -> TipoArquivo [label = "IdTipoArquivo"];
+    ExecucaoFinanceira -> AndamentoFinanceiro [label = "IdAndamentoFinanceiro"];
+    ExecucaoFinanceira -> TipoExecucaoFinanceira [label = "IdTipoExecucaoFinanceira"];
+    ExecucaoFinanceira -> TipoDocumento [label = "IdTipoDocumento"];
+    ExecucaoFinanceira -> Licitacao [label = "IdLicitacao"];
+    ExecucaoFinanceira -> FundamentoLegal [label = "IdFundamentoLegal"];
+    ExecucaoFinanceira -> FaseGrupo [label = "IdFaseGrupo"];
     Alerta -> RecursoPrevisto [label = "IdRecursoPrevisto"];
     Alerta -> Etapa [label = "IdEtapa"];
     Alerta -> Empreendimento [label = "IdEmpreendimento"];
@@ -60,25 +496,6 @@ digraph Relations {
     Alerta -> Licenca [label = "IdLicenca"];
     Alerta -> RelatorioExecucao [label = "IdRelatorioExecucao"];
     Alerta -> Recurso [label = "IdRecurso"];
-    ProgramaGoverno -> Ano [label = "IdAno"];
-    Licenca -> Empreendimento [label = "IdEmpreendimento"];
-    Licenca -> TipoLicenca [label = "IdTipoLicenca"];
-    Licenca -> LicencaAmbiental [label = "IdLicencaAmbiental"];
-    Licenca -> FaseGrupo [label = "IdFaseGrupo"];
-    Licenca -> Instituicao [label = "IdInstituicao"];
-    Aditivo -> RecursoCaptado [label = "IdRecursoCaptado"];
-    Aditivo -> ExecucaoFinanceira [label = "IdExecucaoFinanceira"];
-    ExecucaoFinanceira -> Empreendimento [label = "IdEmpreendimento"];
-    ExecucaoFinanceira -> AndamentoFinanceiro [label = "IdAndamentoFinanceiro"];
-    ExecucaoFinanceira -> TipoExecucaoFinanceira [label = "IdTipoExecucaoFinanceira"];
-    ExecucaoFinanceira -> TipoDocumento [label = "IdTipoDocumento"];
-    ExecucaoFinanceira -> Licitacao [label = "IdLicitacao"];
-    ExecucaoFinanceira -> FundamentoLegal [label = "IdFundamentoLegal"];
-    ExecucaoFinanceira -> ProgramaGoverno [label = "IdProgramaGoverno"];
-    ExecucaoFinanceira -> AcaoGoverno [label = "IdAcaoGoverno"];
-    ExecucaoFinanceira -> FonteRecurso [label = "IdFonteRecurso"];
-    ExecucaoFinanceira -> FaseGrupo [label = "IdFaseGrupo"];
-    Etapa -> Empreendimento [label = "IdEmpreendimento"];
-    Etapa -> TipoEtapa [label = "IdTipoEtapa"];
+
 }
 
