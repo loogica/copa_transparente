@@ -19,8 +19,9 @@ function pie(selector, data) {
             pie: {
                 allowPointSelect: true,
                 cursor: 'pointer',
+                showInLegend: true,
                 dataLabels: {
-                    enabled: true,
+                    enabled: false,
                     color: '#000000',
                     connectorColor: '#000000',
                     format: '<b>{point.name}</b>: {point.percentage:.1f} %'
@@ -30,9 +31,22 @@ function pie(selector, data) {
                 turboThreshold: 0
             }
         },
+        legend: {
+            layout: 'vertical',
+            align: 'center',
+            verticalAlign: 'bottom',
+            backgroundColor: '#f3f3f3',
+            borderWidth: 0,
+            useHTML: true,
+            labelFormatter: function () {
+                return '<div style="width:400px;"><span style="float:left">' + this.name + '</span><span style="float:right">' + this.percentage.toFixed(0) + '%</span><span style="float:right; margin-right:15%">$' + Highcharts.numberFormat(this.y, 0) + '</span></div>';
+                
+            }
+
+        },
         series: [{
             type: 'pie',
-            name: 'Com Lic X Sem Lic',
+            name: '',
             data: data
         }]
     });
@@ -134,26 +148,22 @@ copa.controller('R2Controller',
 
                     pie("#pizza2", data);
                     data = _.filter(original_data, function(el) {
-                        return el.y > 100000000;
+                        return el.y > 500000000 && el.y < 1000000000;
                     });
                     pie("#pizza21", data);
-                    data = _.filter(original_data, function(el) {
-                        return el.y > 10000000;
-                    });
-                    pie("#pizza22", data);
-                    data = _.filter(original_data, function(el) {
-                        return el.y > 1000000;
-                    });
-                    pie("#pizza23", data);
+                    $scope.M_data = _.sortBy(_.filter(original_data, function(el) {
+                        return el.y > 100000000 && el.y < 500000000;
+                    }), function(el) {return el.y; }).reverse();
+                    $scope.m_data = _.sortBy(_.filter(original_data, function(el) {
+                        return el.y > 10000000 && el.y < 100000000;
+                    }), function(el) {return el.y; }).reverse();
                 }).error(function(data, status, header, config) {
                     alert('API ERROR');
                 });
             } else {
-
                 data = _.filter(original_data, function(el) {
                     return el.y > 1000000000;
                 });
-
                 $scope.total_1_b = _.reduce(data,
                     function (x, w) {
                         return {y: x.y + w.y};
@@ -161,19 +171,15 @@ copa.controller('R2Controller',
 
                 pie("#pizza2", data);
                 data = _.filter(original_data, function(el) {
-                    return el.y > 100000000;
+                    return el.y > 500000000 && el.y < 1000000000;
                 });
                 pie("#pizza21", data);
-                data = _.filter(original_data, function(el) {
-                    return el.y > 10000000;
-                });
-                pie("#pizza22", data);
-                data = _.filter(original_data, function(el) {
-                    return el.y > 1000000;
-                });
-                pie("#pizza23", data);
-
-
+                $scope.M_data = _.sortBy(_.filter(original_data, function(el) {
+                    return el.y > 100000000 && el.y < 500000000;
+                }), function(el) {return el.y; }).reverse();
+                $scope.m_data = _.sortBy(_.filter(original_data, function(el) {
+                    return el.y > 10000000 && el.y < 100000000;
+                }), function(el) {return el.y; }).reverse();            
             }
         };
         $scope.show_report_favo();

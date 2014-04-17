@@ -37,7 +37,7 @@
     <div class="container">
       <div class="header">
         <ul class="nav nav-pills pull-right">
-          <li id="li_main"><a href="#Total" ng-click="init()">Gasto Total</a></li>
+          <li id="li_main"><a href="#/inicio" ng-click="init()">Gasto Total</a></li>
           <li id="li_r1"><a href="#/ExecucaoXLicitacao" ng-click="show_report_1()">Execução X Licitação</a></li>
           <li id="li_favo"><a href="#/Contratados" ng-click="show_report_favo()">Contratados</a></li>
         </ul>
@@ -91,14 +91,32 @@
     <script type=text/ng-template id="r2.html">
           <div class="row" ng-show="show_favo">
             <div class="col-lg-12">
-              <h2>Favorecidos que receberam mais de 1 Bilhão ({{ total_1_b }})</h2>
-              <div id="pizza2" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-              <h2>Favorecidos que receberam mais de 100 Milhões</h2>
-              <div id="pizza21" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-              <h2>Favorecidos que receberam mais de 10 Milhões</h2>
-              <div id="pizza22" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-              <h2>Favorecidos que receberam mais de 1 Milhão</h2>
-              <div id="pizza23" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+              <h2>Contratados que receberam mais de 1 Bilhão ({{ total_1_b }})</h2>
+              <div id="pizza2" style="min-width: 450px; margin: 0 auto"></div>
+              <h2>Contratados que receberam mais de 500 Milhões</h2>
+              <div id="pizza21" style="min-width: 450px; margin: 0 auto"></div>
+              <h2>Contratados que receberam mais de 100 Milhões</h2>
+              <table class="table table-condensed">
+                  <tr>
+                      <th>Nome</th>
+                      <th>Valor</th>
+                  </tr>
+                  <tr ng-repeat="company in M_data">
+                      <td>{{company.name}}</td>
+                      <td>{{company.y}}</td>
+                  </tr>
+              </table>
+              <h2>Contratados que receberam mais de 10 Milhões</h2>
+              <table class="table table-condensed">
+                  <tr>
+                      <th>Nome</th>
+                      <th>Valor</th>
+                  </tr>
+                  <tr ng-repeat="company in m_data">
+                      <td>{{company.name}}</td>
+                      <td>{{company.y}}</td>
+                  </tr>
+              </table>
             </div>
           </div>
     </script>
