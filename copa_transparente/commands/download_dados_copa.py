@@ -1,5 +1,6 @@
 # coding: utf-8
 
+import datetime
 import io
 import sys
 import logging
@@ -29,10 +30,9 @@ def download(response, output):
         output.write(data)
         logging.info('Downloaded {bytes}'.format(bytes=total_downloaded))
 
-
-def main():
-    response = request.urlopen(sys.argv[1])
-    out_file = io.FileIO("saida.zip", mode="w")
+def download_url(url, file_path):
+    response = request.urlopen(url)
+    out_file = io.FileIO(file_path, mode="w")
     content_length = response.getheader('Content-Length')
 
     try:
@@ -42,12 +42,15 @@ def main():
         else:
             download(response, out_file)
     except Exception as e:
-        print("Erro no download do arquivo {}".format(sys.argv[1]))
+        raise Exception("Erro no download do arquivo {}".format(url))
     finally:
-        out_file.close()
         response.close()
+        out_file.close()
 
+def main():
+    url = sys.argv[1]
+    timestamp = datetime.datetime.now().strftime("%Y%m%d")
+    download_url(url, "data_{}.zip".format(timestamp))
 
 if __name__ == "__main__":
     main()
-    print("Fim")

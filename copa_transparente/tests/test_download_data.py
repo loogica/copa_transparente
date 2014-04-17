@@ -16,6 +16,52 @@ class DownloadTest(unittest.TestCase):
     def test_download_main(self):
         download_dados_copa.main()
 
+    def test_download_url(self):
+        name1 = 'copa_transparente.commands.download_dados_copa.download'
+        name2 = 'copa_transparente.commands.download_dados_copa.download_length'
+        name3 = 'copa_transparente.commands.download_dados_copa.request'
+        name4 = 'copa_transparente.commands.download_dados_copa.io'
+
+        getheader_mock = mock.MagicMock()
+        getheader_mock.getheader = mock.MagicMock(side_effect=[1024])
+        urlopen_mock = mock.MagicMock(side_effect=[getheader_mock])
+        file_io_mock = mock.MagicMock()
+
+        with mock.patch(name3) as request_mock:
+            with mock.patch(name4) as io_mock:
+                with mock.patch(name2) as down_len_mock:
+                    with mock.patch(name1) as down_mock:
+                        request_mock.urlopen = urlopen_mock
+                        io_mock.FileIO.return_value = file_io_mock
+                        download_dados_copa.download_url("url", "file_path")
+                        urlopen_mock.assert_called_with("url")
+                        getheader_mock.close.assert_called_with()
+                        file_io_mock.close.assert_called_with()
+                        #down_mock.assert_called_with(getheader_mock,
+                        #                             file_io_mock)
+                        down_len_mock.assert_called_with(getheader_mock,
+                                                         file_io_mock, 1024)
+
+        getheader_mock = mock.MagicMock()
+        getheader_mock.getheader = mock.MagicMock(side_effect=[None])
+        urlopen_mock = mock.MagicMock(side_effect=[getheader_mock])
+        file_io_mock = mock.MagicMock()
+
+        with mock.patch(name3) as request_mock:
+            with mock.patch(name4) as io_mock:
+                with mock.patch(name2) as down_len_mock:
+                    with mock.patch(name1) as down_mock:
+                        request_mock.urlopen = urlopen_mock
+                        io_mock.FileIO.return_value = file_io_mock
+                        download_dados_copa.download_url("url", "file_path")
+                        urlopen_mock.assert_called_with("url")
+                        getheader_mock.close.assert_called_with()
+                        file_io_mock.close.assert_called_with()
+                        down_mock.assert_called_with(getheader_mock,
+                                                     file_io_mock)
+
+
+
     def test_download_with_known_length(self):
         response = mock.MagicMock()
         response.read = mock.MagicMock(side_effect=['Data']*2)
