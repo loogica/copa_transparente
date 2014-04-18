@@ -39,7 +39,7 @@ function pie(selector, data) {
             borderWidth: 0,
             useHTML: true,
             labelFormatter: function () {
-                return '<div style="width:400px;"><span style="float:left">' + this.name + '</span><span style="float:right">' + this.percentage.toFixed(0) + '%</span><span style="float:right; margin-right:15%">$' + Highcharts.numberFormat(this.y, 0) + '</span></div>';
+                return '<div style="width:300px;"><span style="float:left">' + this.name + '</span><span style="float:right">' + this.percentage.toFixed(0) + '%</span><span style="float:right; margin-right:15%">$' + Highcharts.numberFormat(this.y, 0) + '</span></div>';
                 
             }
 

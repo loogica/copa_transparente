@@ -125,18 +125,18 @@
                   </tr>
                   <tr ng-repeat="company in M_data">
                       <td>{{company.name}}</td>
-                      <td>{{company.y}}</td>
+                      <td style="width: 20%;">{{company.money}}</td>
                   </tr>
               </table>
               <h2>Contratados que receberam mais de 10 Milhões</h2>
               <table class="table table-condensed">
                   <tr>
                       <th>Nome</th>
-                      <th>Valor</th>
+                      <th style="width: 20%;">Valor</th>
                   </tr>
                   <tr ng-repeat="company in m_data">
                       <td>{{company.name}}</td>
-                      <td>{{company.y}}</td>
+                      <td class="money">{{company.money}}</td>
                   </tr>
               </table>
             </div>
