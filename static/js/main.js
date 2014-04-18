@@ -53,7 +53,7 @@ function pie(selector, data) {
 }
 
 copa.controller('CopaController',
-    function($scope, $http) {
+    function($scope, $http, $rootScope, $location) {
         $scope.show_main = true;
         $scope.show_r1 = false;
         $scope.show_favo = false;
@@ -64,6 +64,8 @@ copa.controller('CopaController',
             $scope.show_r1 = false;
             $scope.show_main = true;
             $scope.show_favo = false;
+            $rootScope.current = "Gasto Total";
+            $rootScope.current_link = $location.path();
             $http({
                 url: '/data.json',
                 method: 'GET'
@@ -88,7 +90,7 @@ d_total_sem_ref_lic = null;
 d_total_com_ref_lic = null;
 
 copa.controller('R1Controller',
-    function($scope, $http) {
+    function($scope, $http, $rootScope, $location) {
         $scope.show_report_1 = function() {
             $("#li_r1").addClass('active');
             $("#li_main").removeClass('active');
@@ -96,6 +98,8 @@ copa.controller('R1Controller',
             $scope.show_r1 = true;
             $scope.show_main = false;
             $scope.show_favo = false;
+            $rootScope.current = "Com licitação X Sem Licitação";
+            $rootScope.current_link = $location.path();
 
             $http({
                 url: '/data.json',
@@ -122,7 +126,7 @@ copa.controller('R1Controller',
 });
 
 copa.controller('R2Controller',
-    function($scope, $http) {
+    function($scope, $http, $rootScope, $location) {
         $scope.show_report_favo = function() {
             $("#li_favo").addClass('active');
             $("#li_r1").removeClass('active');
@@ -130,6 +134,8 @@ copa.controller('R2Controller',
             $scope.show_r1 = false;
             $scope.show_main = false;
             $scope.show_favo = true;
+            $rootScope.current = "Contratados";
+            $rootScope.current_link = $location.path();
 
             if (!original_data) { 
                 $http({
@@ -193,5 +199,5 @@ copa.config(function ($routeProvider) {
                                     controller: 'R1Controller'})
                   .when('/Contratados', {templateUrl: 'r2.html',
                                     controller: 'R2Controller'})
-                   .otherwise({redirectTo: '/inicio'});
+                  .otherwise({redirectTo: '/inicio'});
 });
