@@ -1,6 +1,7 @@
 var copa = angular.module('copaapp', ['ngRoute']);
 
 var original_data = null;
+var original_recurso_data = null;
 
 function pie(selector, data) {
     $(selector).highcharts({
@@ -40,7 +41,7 @@ function pie(selector, data) {
             useHTML: true,
             labelFormatter: function () {
                 return '<div style="width:300px;"><span style="float:left">' + this.name + '</span><span style="float:right">' + this.percentage.toFixed(0) + '%</span><span style="float:right; margin-right:15%">$' + Highcharts.numberFormat(this.y, 0) + '</span></div>';
-                
+
             }
 
         },
@@ -58,12 +59,11 @@ copa.controller('CopaController',
         $scope.show_r1 = false;
         $scope.show_favo = false;
         $scope.init = function(route) {
-            $("#li_main").addClass('active');
-            $("#li_r1").removeClass('active');
-            $("#li_favo").removeClass('active');
             $scope.show_r1 = false;
             $scope.show_main = true;
             $scope.show_favo = false;
+            $scope.show_recursos = false;
+
             $rootScope.current = "Gasto Total";
             $rootScope.current_link = $location.path();
             $http({
@@ -76,6 +76,7 @@ copa.controller('CopaController',
                 $scope.percentual_dados_desconsiderados = data.percentual_dados_desconsiderados;
                 $scope.atualizado = data.atualizado;
                 $scope.total_contrapartida = data.total_contrapartida;
+                $scope.total_previsto = data.total_previsto;
                 d_total_sem_ref_lic = data.d_total_sem_ref_lic;
                 d_total_com_ref_lic = data.d_total_com_ref_lic;
             }).error(function(data, status, header, config) {
@@ -92,12 +93,11 @@ d_total_com_ref_lic = null;
 copa.controller('R1Controller',
     function($scope, $http, $rootScope, $location) {
         $scope.show_report_1 = function() {
-            $("#li_r1").addClass('active');
-            $("#li_main").removeClass('active');
-            $("#li_favo").removeClass('active');
             $scope.show_r1 = true;
             $scope.show_main = false;
             $scope.show_favo = false;
+            $scope.show_recursos = false;
+
             $rootScope.current = "Com licitação X Sem Licitação";
             $rootScope.current_link = $location.path();
 
@@ -128,16 +128,15 @@ copa.controller('R1Controller',
 copa.controller('R2Controller',
     function($scope, $http, $rootScope, $location) {
         $scope.show_report_favo = function() {
-            $("#li_favo").addClass('active');
-            $("#li_r1").removeClass('active');
-            $("#li_main").removeClass('active');
             $scope.show_r1 = false;
             $scope.show_main = false;
             $scope.show_favo = true;
+            $scope.show_recursos = false;
+
             $rootScope.current = "Contratados";
             $rootScope.current_link = $location.path();
 
-            if (!original_data) { 
+            if (!original_data) {
                 $http({
                     url: '/data_favo.json',
                     method: 'GET'
@@ -185,11 +184,41 @@ copa.controller('R2Controller',
                 }), function(el) {return el.y; }).reverse();
                 $scope.m_data = _.sortBy(_.filter(original_data, function(el) {
                     return el.y > 10000000 && el.y < 100000000;
-                }), function(el) {return el.y; }).reverse();            
+                }), function(el) {return el.y; }).reverse();
             }
         };
         $scope.show_report_favo();
 });
+
+copa.controller('R3Controller',
+    function($scope, $http, $rootScope, $location) {
+        $scope.show_report_favo = function() {
+            $scope.show_r1 = false;
+            $scope.show_main = false;
+            $scope.show_favo = true;
+            $scope.show_recursos = true;
+
+            $rootScope.current = "Recursos Captados";
+            $rootScope.current_link = $location.path();
+
+            if (!original_data) {
+                $http({
+                    url: '/recursos.json',
+                    method: 'GET'
+                }).success(function(data, status, header, config) {
+                    original_recurso_data = data;
+                    $scope.recursos = data.recursos;
+
+                }).error(function(data, status, header, config) {
+                    alert('API ERROR');
+                });
+            } else {
+                $scope.recursos = original_recurso_data.recursos;
+            }
+        };
+        $scope.show_report_favo();
+});
+
 
 
 copa.config(function ($routeProvider) {
@@ -199,5 +228,7 @@ copa.config(function ($routeProvider) {
                                     controller: 'R1Controller'})
                   .when('/Contratados', {templateUrl: 'r2.html',
                                     controller: 'R2Controller'})
+                  .when('/RecursosCaptados', {templateUrl: 'r3.html',
+                                    controller: 'R3Controller'})
                   .otherwise({redirectTo: '/inicio'});
 });

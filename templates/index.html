@@ -57,6 +57,7 @@
                   <li><a href="#/inicio">Gasto Total</a></li>
                   <li><a href="#/ExecucaoXLicitacao">Com lic. X Sem lic.</a></li>
                   <li><a href="#/Contratados">Contratados</a></li>
+                  <li><a href="#/RecursosCaptados">Recursos Captados</a></li>
                   <!--li class="divider"></li>
                   <li><a href="#">Sobre</a></li-->
                 </ul>
@@ -74,10 +75,9 @@
     <script type=text/ng-template id="inicio.html">
           <div class="jumbotron" ng-show="show_main">
             <h1>Gasto Total*: {{ total }}</h1>
+            <h2>Gasto Previsto Total: {{ total_previsto }}</h2>
             <h4>Total das contrapartidas*: {{ total_contrapartida }}</h4>
             <p class="lead">*Soma da coluna ValContrato da tabela ExecucaoFinanceira</p>
-            <p class="lead">*{{ percentual_dados_desconsiderados }} dos dados não seguem convenções de formatação e não podem ser considerados. É importante
-            salientar que o valor apresentado, significa a soma de tudo que foi considerado, ou seja, o valor gasto não é menor que o valor apresentado.</p>
             <p class="lead">Última atualização: {{ atualizado }}</p>
           </div>
           <div class="row marketing" ng-show="show_main">
@@ -137,6 +137,25 @@
                   <tr ng-repeat="company in m_data">
                       <td>{{company.name}}</td>
                       <td class="money">{{company.money}}</td>
+                  </tr>
+              </table>
+            </div>
+          </div>
+    </script>
+        <script type=text/ng-template id="r3.html">
+          <div class="row" ng-show="show_recursos">
+            <div class="col-lg-12">
+              <h2>Recurso Captado</h2>
+              <table class="table table-condensed">
+                  <tr>
+                      <th>Cedente</th>
+                      <th>Valor</th>
+                      <th>Beneficiário</th>
+                  </tr>
+                  <tr ng-repeat="recurso in recursos">
+                      <td>{{recurso.NomInstituicao}}</td>
+                      <td style="width: 20%;">{{recurso.ValCedido_str}}</td>
+                      <td>{{recurso.NomInstituicaoBeneficiario}}</td>
                   </tr>
               </table>
             </div>
