@@ -207,7 +207,9 @@ copa.controller('R3Controller',
                     method: 'GET'
                 }).success(function(data, status, header, config) {
                     original_recurso_data = data;
-                    $scope.recursos = data.recursos;
+                    $scope.recursos = _.sortBy(data.recursos, function (el) {
+                        return el.ValCedido;
+                    }).reverse();
 
                 }).error(function(data, status, header, config) {
                     alert('API ERROR');
