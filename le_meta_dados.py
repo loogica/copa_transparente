@@ -4,23 +4,20 @@ import os
 import pickle
 
 from copa_transparente import domain
+from copa_transparente.utils import extract_table_name
 
-
-def extrai_table_name(meta_name):
-    return meta_name.split('_')
 
 def main():
     meta = {}
     for meta_data in os.listdir("banco/meta-data"):
         meta_file = os.path.join("banco/meta-data", meta_data)
         meta_name = meta_data.replace(".txt", "")
-        table_name = extrai_table_name(meta_name)[1]
-        table_timestamp = extrai_table_name(meta_name)[0]
+        table_timestamp, table_name = extract_table_name(meta_name)
         text_file = open(meta_file, "r", encoding="utf-8")
         data = text_file.read()
         columns = data.split('\n')
         meta[table_name] = domain.DataTable(table_name)
-        ler_linhas(meta, table_name, columns)
+        read_lines(meta, table_name, columns)
 
     pks = {}
 
@@ -47,7 +44,8 @@ def main():
     out_file.write(pickle.dumps(meta))
     out_file.close()
 
-def ler_linhas(meta, table_name, columns):
+
+def read_lines(meta, table_name, columns):
     for i, column in enumerate(columns):
         if column:
             values = column.split('\t')
