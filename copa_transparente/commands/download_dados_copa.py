@@ -30,6 +30,7 @@ def download(response, output):
         output.write(data)
         logging.info('Downloaded {bytes}'.format(bytes=total_downloaded))
 
+
 def download_url(url, file_path):
     response = request.urlopen(url)
     out_file = io.FileIO(file_path, mode="w")
@@ -46,6 +47,7 @@ def download_url(url, file_path):
     finally:
         response.close()
         out_file.close()
+
 
 def main():
     url = sys.argv[1]

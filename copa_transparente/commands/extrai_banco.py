@@ -1,13 +1,15 @@
 # coding: utf-8
 
+import datetime
 import os
 import zipfile
 
-def main():
-    banco_zip = zipfile.ZipFile("saida.zip")
+
+def extract_zip(file_name):
+    banco_zip = zipfile.ZipFile(file_name)
     banco_zip.extractall(path="banco")
     banco_zip.close()
-    print("Saida.zip descomprimido")
+    print("{} descomprimido".format(file_name))
 
     for tabela in os.listdir('banco'):
         nome_banco = os.path.join("banco", tabela)
@@ -33,4 +35,11 @@ def main():
         else:
             pass
 
-main()
+
+def main():
+    timestamp = datetime.datetime.now().strftime("%Y%m%d")
+    extract_zip("data_{}.zip".format(timestamp))
+
+
+if __name__ == "__main__":
+    main()
