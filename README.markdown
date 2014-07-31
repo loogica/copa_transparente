@@ -44,12 +44,6 @@ Exemplo: http://www.portaldatransparencia.gov.br/copa2014/gestor/download?nomeAr
 python copa_transparente/commands/download_dados_copa.py url
 ```
 
-## Extraindo todos arquivos
-
-```sh
-python copa_transparente/commands/extrai_banco.py
-```
-
 ## Processamento de Meta Dados
 
 ```sh

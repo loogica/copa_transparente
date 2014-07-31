@@ -2,8 +2,10 @@
 
 import datetime
 import io
-import sys
 import logging
+import os
+import sys
+import zipfile
 
 import urllib.request as request
 
@@ -42,17 +44,50 @@ def download_url(url, file_path):
             download_length(response, out_file, length)
         else:
             download(response, out_file)
-    except Exception as e:
+    except Exception:
         raise Exception("Erro no download do arquivo {}".format(url))
     finally:
         response.close()
         out_file.close()
 
 
+def extract_zip(file_name):
+    banco_zip = zipfile.ZipFile(file_name)
+    banco_zip.extractall(path="banco")
+    banco_zip.close()
+    print("{} descomprimido".format(file_name))
+
+    for tabela in os.listdir('banco'):
+        nome_banco = os.path.join("banco", tabela)
+        banco_zip = zipfile.ZipFile(nome_banco)
+        banco_zip.extractall(path="banco")
+        banco_zip.close()
+        os.remove(nome_banco)
+        print("Processado %s" % (nome_banco))
+
+    print("Criando Base de Dados")
+    os.chdir("banco")
+
+    if not os.path.exists("data"):
+        os.mkdir("data")
+    if not os.path.exists("meta-data"):
+        os.mkdir("meta-data")
+
+    for arquivo in os.listdir("."):
+        if arquivo.endswith(".txt"):
+            os.rename(arquivo, os.path.join("meta-data", arquivo))
+        elif arquivo.endswith(".csv"):
+            os.rename(arquivo, os.path.join("data", arquivo))
+        else:
+            pass
+
+
 def main():
     url = sys.argv[1]
     timestamp = datetime.datetime.now().strftime("%Y%m%d")
     download_url(url, "data_{}.zip".format(timestamp))
+    extract_zip("data_{}.zip".format(timestamp))
+
 
 if __name__ == "__main__":
     main()
