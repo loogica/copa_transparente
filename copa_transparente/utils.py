@@ -2,7 +2,7 @@
 
 def extract_table_name(meta_name):
     values = meta_name.split('_')
-    return values[0], meta_name.replace(values[0], '')
+    return values[0], meta_name.replace("{}_".format(values[0]), '')
 
 
 def fix_line(line, max_rows):
