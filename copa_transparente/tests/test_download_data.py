@@ -1,17 +1,18 @@
+import os
+import shutil
 import unittest
+
 from unittest import mock
+
 
 from copa_transparente.commands import download_dados_copa
 
 
-HEADER_URL = 'http://www.portaldatransparencia.gov.br/copa2014/gestor/' \
-             'download?nomeArquivo=201209_BaseDados.zip'
-
-NO_LENGTH_HEADER = 'http://www.portaldatransparencia.gov.br/copa2014/gestor/' \
-                   'download?nomeArquivo=20130711_BaseDados.zip'
-
-
 class DownloadTest(unittest.TestCase):
+    def setUp(self):
+        self._test_path = "banco_teste"
+        self.addCleanup(self._loca_file_cleanup, (self._test_path))
+
     @unittest.skip('Untestable code')
     def test_download_main(self):
         download_dados_copa.main()
@@ -100,3 +101,21 @@ class DownloadTest(unittest.TestCase):
                  mock.call('more data')]
 
         output.write.assert_has_calls(calls)
+
+    def test_extract_zip(self):
+        zip_path = os.path.join(os.path.dirname(__file__),
+                                "resources", "test.zip")
+
+        test_path = "banco_teste"
+        download_dados_copa.extract_zip(zip_path, path=test_path)
+
+        data_path = os.path.join(test_path, "data")
+        meta_data_path = os.path.join(test_path, "meta-data")
+        self.assertTrue(os.path.exists(data_path))
+        self.assertTrue(os.path.exists(meta_data_path))
+        self.assertTrue(len(os.listdir(meta_data_path)) > 0)
+        self.assertTrue(len(os.listdir(data_path)) > 0)
+
+    def _loca_file_cleanup(self, path):
+        if os.path.exists(path):
+            shutil.rmtree(path)

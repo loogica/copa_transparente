@@ -51,22 +51,20 @@ def download_url(url, file_path):
         out_file.close()
 
 
-def extract_zip(file_name):
+def extract_zip(file_name, path="banco"):
     banco_zip = zipfile.ZipFile(file_name)
-    banco_zip.extractall(path="banco")
+    banco_zip.extractall(path=path)
     banco_zip.close()
-    print("{} descomprimido".format(file_name))
 
-    for tabela in os.listdir('banco'):
-        nome_banco = os.path.join("banco", tabela)
+    for tabela in os.listdir(path):
+        nome_banco = os.path.join(path, tabela)
         banco_zip = zipfile.ZipFile(nome_banco)
-        banco_zip.extractall(path="banco")
+        banco_zip.extractall(path=path)
         banco_zip.close()
         os.remove(nome_banco)
-        print("Processado %s" % (nome_banco))
 
-    print("Criando Base de Dados")
-    os.chdir("banco")
+    current_path = os.getcwd()
+    os.chdir(path)
 
     if not os.path.exists("data"):
         os.mkdir("data")
@@ -81,6 +79,7 @@ def extract_zip(file_name):
         else:
             pass
 
+    os.chdir(current_path)
 
 def main():
     url = sys.argv[1]
