@@ -41,13 +41,13 @@ Exemplo: http://www.portaldatransparencia.gov.br/copa2014/gestor/download?nomeAr
 ## Download de uma base de dados
 
 ```sh
-python copa_transparente/commands/download_dados_copa.py url
+python download.py url
 ```
 
-## Processamento de Meta Dados
+Exemplo:
 
 ```sh
-python le_meta_dados.py
+python download.py http://www.portaldatransparencia.gov.br/copa2014/gestor/download\?nomeArquivo\=20140729_BaseDados.zip
 ```
 
 ## Gera modelo visual
