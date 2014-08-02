@@ -13,6 +13,49 @@ from copa_transparente.query import select
 from copa_transparente.utils import fix_line, extract_table_name
 
 
+dotviz = '''
+digraph Relations {
+    node [shape = rectangle];
+    %s
+    %s
+}
+'''
+
+def generate_dotlang():
+    pks = {}
+    relations = {}
+    reverse_relations = {}
+
+    in_file = open("banco/datamodel.pickle", "rb")
+    grafo = pickle.loads(in_file.read())
+    in_file.close()
+
+    for table, meta in grafo.items():
+        pk = meta.pk
+        pks[pk.name] = meta
+
+    for table, meta in grafo.items():
+        columns = meta.cols[2:]
+        relations[table] = []
+        for column in columns:
+            if column.name in pks:
+                relations[table].append((pks[column.name].name, column.name))
+
+    tables = ""
+    for table, meta in grafo.items():
+        inner_text = "{}\n\n".format(table)
+        for column in meta.cols:
+            inner_text += "{}\n".format(column.name)
+        tables += '{} [label="{}"];\n'.format(table, inner_text)
+
+    stringio = io.StringIO()
+    for name, relations in relations.items():
+        for relation in relations:
+            stringio.write('    %s -> %s [label = "%s"];\n' % (name, relation[0], relation[1]))
+
+    print(dotviz % (tables, stringio.getvalue()))
+
+
 def table_detail(table_name):
     relations = {}
     in_file = open("banco/datamodel.pickle", "rb")
@@ -60,7 +103,8 @@ def show_data(table_name):
     files = os.listdir('banco/data')
     data_file_path = None
     for f in files:
-        _, fixex_table_name = extract_table_name(f)
+        timestamp, fixex_table_name = extract_table_name(f)
+        print(timestamp, fixex_table_name)
         if fixex_table_name.startswith(table_name):
             data_file_path = os.path.join('banco/data', f)
 
