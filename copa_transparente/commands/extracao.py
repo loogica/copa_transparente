@@ -9,7 +9,6 @@ import pickle
 import sys
 
 
-from copa_transparente.query import select
 from copa_transparente.utils import fix_line, extract_table_name
 
 
@@ -134,6 +133,6 @@ def load_table(table_name):
 
 def show_data(table_name):
     table = load_table(table_name)
-    for data in select()._from(table):
+    for data in table._data:
         print(data)
 

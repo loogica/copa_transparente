@@ -276,3 +276,32 @@ class DataTable:
                     pass
             if not _fail:
                 yield tuple(row_data)
+
+    def get_index_and_col(self, name):
+        for i, col in enumerate(self._columns):
+            if col.name == name:
+                return i, col
+
+    def _join(self, table, on=None):
+        result = DataTable("{}.{}".format(self.name, table.name))
+        for col in self._columns + table._columns:
+            result._columns.append(col)
+
+        if on:
+            index, t1_to_t2 = self.get_index_and_col(on)
+        else:
+            import ipdb; ipdb.set_trace()
+            index, t1_to_t2 = self.get_index_and_col(table.pk.name)
+
+        table_hash = {}
+        for el in table._data:
+            table_hash[el[0]] = el
+        for data in self._data:
+            try:
+                data_referenced = table_hash[data[index]]
+            except:
+                data_referenced = tuple([None] * len(table._columns))
+                print("error")
+            new_data = data + data_referenced
+            result.add_data(new_data, validate=False)
+        return result
