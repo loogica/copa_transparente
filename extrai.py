@@ -5,14 +5,16 @@ import argparse
 from copa_transparente.commands import extracao
 
 
-parser = argparse.ArgumentParser(description='Extrai informação dos dados')
-parser.add_argument('-L', '--lista', required=False, action='store_const',
+parser = argparse.ArgumentParser(description='Extrai informação dos dados',
+                                 add_help=False)
+parser.add_argument('-a', '--ajuda', action='help', help='Exibe ajuda')
+parser.add_argument('-l', '--lista', required=False, action='store_const',
                     const=True, help='Lista tabelas')
-parser.add_argument('-D', '--detalhe', type=str, required=False,
+parser.add_argument('-d', '--detalhe', type=str, required=False,
                     help='Descrição de uma tabela')
-parser.add_argument('-C', '--consulta', type=str, required=False,
+parser.add_argument('-c', '--consulta', type=str, required=False,
                     help='Consulta dados de uma tabela')
-parser.add_argument('-G', '--dotlang', required=False, action='store_const',
+parser.add_argument('-g', '--dotlang', required=False, action='store_const',
                     const=True, help='Gerar saída dotlang para gerar imagem')
 
 
