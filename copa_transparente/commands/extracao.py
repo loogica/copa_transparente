@@ -95,7 +95,7 @@ def table_list():
         print(name)
 
 
-def show_data(table_name):
+def load_table(table_name):
     in_file = open("banco/datamodel.pickle", "rb")
     grafo = pickle.loads(in_file.read())
     in_file.close()
@@ -104,7 +104,6 @@ def show_data(table_name):
     data_file_path = None
     for f in files:
         timestamp, fixex_table_name = extract_table_name(f)
-        print(timestamp, fixex_table_name)
         if fixex_table_name.startswith(table_name):
             data_file_path = os.path.join('banco/data', f)
 
@@ -131,6 +130,10 @@ def show_data(table_name):
         except Exception:
             print("Erro na linha {}".format(line_count))
 
+    return table
+
+def show_data(table_name):
+    table = load_table(table_name)
     for data in select()._from(table):
         print(data)
 
