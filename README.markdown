@@ -6,18 +6,6 @@ que:
 * Faz o download de um arquivo de base de dados do projeto copa transparente e interpreta os dados.
 * Permite consultas de dados, schema, lista de tabelas e outras coisas.
 
-## Obtendo a url para download
-
-Para acessar os dados de todas as tabelas do dia dd/MM/yyyy,
-onde dd representa o dia do mês (incluindo o 0 a esquerda,
-se for dia de 1 a 9), MM representa o mês (incluindoo 0 a
-esquerda, se for mês de 1 a 9) e yyyy o ano, basta acessar
-o seguinte link:
-
-http://www.portaldatransparencia.gov.br/copa2014/gestor/download?nomeArquivo=yyyyMMdd_BaseDados.zip
-
-Exemplo: http://www.portaldatransparencia.gov.br/copa2014/gestor/download?nomeArquivo=20140110_BaseDados.zip
-
 ## Download de uma base de dados
 
 ```sh
