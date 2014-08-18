@@ -21,13 +21,13 @@ Exemplo: http://www.portaldatransparencia.gov.br/copa2014/gestor/download?nomeAr
 ## Download de uma base de dados
 
 ```sh
-python download.py url
+python download.py timestamp(YYYYMMDD)
 ```
 
-Exemplo:
+Exemplo - Download base 29/07/2014:
 
 ```sh
-python download.py http://www.portaldatransparencia.gov.br/copa2014/gestor/download\?nomeArquivo\=20140729_BaseDados.zip
+python download.py 20140729
 ```
 
 ## Le informações da base
